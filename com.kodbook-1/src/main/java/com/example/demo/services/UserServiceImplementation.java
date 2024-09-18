@@ -1,8 +1,11 @@
 package com.example.demo.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.entities.Post;
 import com.example.demo.entities.User;
 import com.example.demo.repositories.UserRepository;
 
@@ -46,5 +49,21 @@ public class UserServiceImplementation implements UserService {
 		}
 		return false;
 	}
+
+	@Override
+	public User getUser(String username) {
+		// TODO Auto-generated method stub
+		
+		return repo.findByUsername(username);
+	}
+
+	@Override
+	public void updateUser(User user) {
+		// TODO Auto-generated method stub
+		repo.save(user);
+		
+	}
+
+	
 
 }
