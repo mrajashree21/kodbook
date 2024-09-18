@@ -14,20 +14,40 @@
         <a href="/profile">My profile</a>
     </nav>
     
-    <div class="profile-details">
+     <div class="posts-container">
         
-       
+       <span th:each="post : ${allPosts}">
+            <div class="post-card">
+            
+            
+              
+
+            
+                  
+            
+               
+                <!-- Post Image -->
+                <div class="post-image">
+                    <img th:if="${post.photoBase64}" 
+                         th:src="'data:image/jpeg;base64,' + ${post.photoBase64}" 
+                         alt="Post Photo" />
+                </div>
+            
+            
+            
                 
-        <span th:each="post : ${allPosts}">
-            <div class="post">
-                <p><strong>Photo:</strong></p>
-                <img th:if="${post.photoBase64}" 
-                    th:src="'data:image/jpeg;base64,' + ${post.photoBase64}" 
-                    alt="Post Photo" />
-                <p><strong>Caption:</strong> 
-                    <span th:text="${post.caption}"></span></p>
-                <p><strong>Likes:</strong> 
-                    <span th:text="${post.likes}"></span></p>
+                    
+                <!-- Caption -->   
+                <p>
+                <strong>Caption:</strong> 
+                    <span th:text="${post.caption}"></span>
+                </p>
+                
+                 <!-- Likes -->
+                <p>
+                <strong>Likes:</strong> 
+                    <span th:text="${post.likes}"></span>
+                </p>
                 
                 <!-- Like form -->
                 <form action="/likePost" method="post">

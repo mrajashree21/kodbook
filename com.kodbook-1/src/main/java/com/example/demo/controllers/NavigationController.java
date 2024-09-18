@@ -8,13 +8,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.demo.entities.Post;
+import com.example.demo.entities.User;
 import com.example.demo.services.PostService;
+import com.example.demo.services.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class NavigationController {
 	
 	@Autowired
 	PostService postService;
+	
+	@Autowired
+	UserService service;
+	
 	
 	@GetMapping("/")
 	public String index(){
@@ -40,7 +48,10 @@ public class NavigationController {
 	}
 	
 	@GetMapping("/profile")
-	public String profile(){
+	public String profile(Model model, HttpSession session){
+		String username = (String) session.getAttribute("username");
+		User user = service.getUser(username);
+		model.addAttribute("user", user);
 		return "profile";
 	}
 	

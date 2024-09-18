@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,6 +106,10 @@ public class UserController {
 		}
 		service.updateUser(user);
 		model.addAttribute("user", user);
+		
+		
+				
+		
 		return "profile";
 	}
 }

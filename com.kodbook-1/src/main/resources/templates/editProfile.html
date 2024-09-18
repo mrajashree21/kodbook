@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Edit Profile</title>
+	<meta charset="UTF-8">
+	<title>Edit Profile</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 <body>
-  <h1>KodBook</h1>
-		<h3>Updating the profile deatils</h3>
+        <h1>KodBook</h1>
+		<h3 class="signupcontents">Updating the profile deatils</h3>
 		<hr>
-		<form action="/updateProfile" method="post" enctype="multipart/form-data">
+		<form class="editform" action="/updateProfile" method="post" enctype="multipart/form-data">
 			
 			<label>DOB : </label>
 			<input type = "date" name = "dob">

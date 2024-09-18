@@ -92,6 +92,18 @@ a:hover {
     text-decoration: underline;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
 h1.kodbook
 {
     	
@@ -128,3 +140,50 @@ h3.signupcontents
     width: 330px;
     margin-left: 250px;
 }
+.editform
+{
+	border-radius: 4px;
+    padding: 40px;
+    
+   width: 330px;
+   
+    margin-left:300px;
+    margin-top:300px;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
