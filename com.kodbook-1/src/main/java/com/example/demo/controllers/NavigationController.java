@@ -1,3 +1,4 @@
+
 package com.example.demo.controllers;
 
 import java.util.List;
@@ -16,52 +17,113 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class NavigationController {
-	
-	@Autowired
-	PostService postService;
-	
 	@Autowired
 	UserService service;
-	
-	
+	@Autowired
+	PostService postService;
 	@GetMapping("/")
-	public String index(){
+	public String index() {
 		return "index";
 	}
-	
-
 	@GetMapping("/openSignUp")
-	public String openSignUp(){
+	public String openSignUp() {
 		return "signUp";
 	}
-	
-	@GetMapping("/createPost")
-	public String createPost(){
-		return "createPost";
+	@GetMapping("/openCreatePost")
+	public String openCreatePost(HttpSession session) {
+		if(session.getAttribute("username")!=null)
+		{
+			return "createPost";
+		}
+		else
+		{
+			return "index";
+		}
+		
 	}
-	
 	@GetMapping("/goHome")
-	public String login(Model model)	{
-			List<Post> allPosts = postService.fetchAllPosts();
-			model.addAttribute("allPosts", allPosts);
-			return "home";
+	public String login(Model model,HttpSession session)	{
+		
+		
+		List<Post> allPosts = postService.fetchAllPosts();
+		model.addAttribute("allPosts", allPosts);
+			
+			if(session.getAttribute("username")!=null)
+			{
+				
+				return "home";
+			}
+			else
+			{
+				return "index";
+			}	
+			
+			
 	}
 	
-	@GetMapping("/profile")
-	public String profile(Model model, HttpSession session){
+	
+	@GetMapping("/openMyProfile")
+	public String openMyProfile(Model model, HttpSession session) {
 		String username = (String) session.getAttribute("username");
 		User user = service.getUser(username);
 		model.addAttribute("user", user);
-		return "profile";
-	}
-	
-	@GetMapping("/editProfile")
-	public String editProfile(){
-		return "editProfile";
-	}
-	
-	
-	
-	
+		
+		
+		
+		
+		
+		if(session.getAttribute("username")!=null)
+		{
+			List<Post> myPosts = user.getPosts();
+			model.addAttribute("myPosts", myPosts);
+			
+			return "profile";
+		}
+		else
+		{
+			return "index";
+		}	
+		
 
+        
+		
+	}
+	
+	@GetMapping("/openEditProfile")
+	public String openEditProfile( HttpSession session) {
+		
+		if(session.getAttribute("username")!=null)
+		{
+			
+			return "editProfile";
+		}
+		else
+		{
+			return "index";
+		}	
+	}
+	
+	
+	@GetMapping("/logout")
+	public String logout( HttpSession session)
+	{
+		session.invalidate();
+		return "index";
+		
+	}
+	
+	
+	
+	@GetMapping("/userProfile")
+	public String userProfile(Model model, HttpSession session) {
+		
+		String username = (String) session.getAttribute("username");
+		User user = service.getUser(username);
+		return null;
+		
+		
+		
+		
+	}
+	
 }

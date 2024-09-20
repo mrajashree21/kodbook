@@ -8,49 +8,46 @@ import org.springframework.stereotype.Service;
 import com.example.demo.entities.Post;
 import com.example.demo.repositories.PostRepository;
 
+
+
 @Service
-public class PostServiceImplementation implements PostService {
-	
+public class PostServiceImplementation
+		implements PostService{
+
 	@Autowired
 	PostRepository repo;
 
 	@Override
 	public void createPost(Post post) {
-		// TODO Auto-generated method stub
 		repo.save(post);
-		
 	}
-
-	
-
-	@Override
-	public List<Post> fetchAllPosts() {
-		// TODO Auto-generated method stub
-		return repo.findAll();
-	}
-
-
 
 	@Override
 	public List<Post> getAllPosts() {
-		// TODO Auto-generated method stub
 		return repo.findAll();
 	}
 
-
-
+	@Override
+	public List<Post> fetchAllPosts() {
+		return repo.findAll();
+	}
+	
 	@Override
 	public Post getPost(Long id) {
-		// TODO Auto-generated method stub
 		return repo.findById(id).get();
 	}
-
-
 
 	@Override
 	public void updatePost(Post post) {
 		repo.save(post);
-		
 	}
 
-}
+	
+	
+
+	
+	
+	
+
+	
+}  

@@ -1,16 +1,15 @@
 <!DOCTYPE html>
- <html>
-  <head>
-   <meta charset="UTF-8">
-   <title>kodBook</title>
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-  </head>
-  <body>
-   <h1 class="kodbook">KodBook</h1>
-		<h3 class="content">#1 Social media app!</h3>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>KodBook</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+	</head>
+	<body>
+		<h1>KodBook</h1>
+		<h3>#1 Social media app!</h3>
 		<hr>
-		<form class="form" action="/login" method="post">
+		<form action="/login" method="post">
 			<label>USERNAME : </label>
 			<input type = "text" name = "username">
 			<br><br>
@@ -24,5 +23,5 @@
 			<a href = "/openResetPassword">Forgot password?</a>
 			<a href = "/openSignUp">Create new account</a>
 		</form>
-  </body>
+	</body>
 </html>

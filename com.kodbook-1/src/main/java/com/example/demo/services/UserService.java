@@ -7,20 +7,16 @@ import com.example.demo.entities.User;
 
 public interface UserService {
 
-	Boolean userExists(String username, String email);
-
 	void addUser(User user);
 
-	
+	boolean userExists(String username, String email);
 
-	Boolean validateUser(String username, String password);
-	
+	boolean validateUser(String username, String password);
+
 	User getUser(String username);
-	
+
 	void updateUser(User user);
 
-	
-	
 	
 
 }

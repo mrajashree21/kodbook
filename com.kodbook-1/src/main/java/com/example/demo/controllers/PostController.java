@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,68 +22,53 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class PostController {
-	
 	@Autowired
 	PostService service;
-	
-
 	@Autowired
 	UserService userService;
 	
+	@PostMapping("/createPost")
+	public String createPost(@RequestParam ("caption") String caption,
+            @RequestParam("photo") MultipartFile photo,
+            Model model, HttpSession session) {
+		
+		String username = (String) session.getAttribute("username");
+		User user = userService.getUser(username);
+		
+		
+		
+		Post post = new Post();
+		//updating post object
+		post.setUser(user);
+		
+		post.setCaption(caption);
+		try {						
+			post.setPhoto(photo.getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		service.createPost(post);
+		//updating user object
+				List<Post> posts = user.getPosts();
+				if(posts == null) {
+					posts = new ArrayList<Post>();
+				}
+				posts.add(post);
+				user.setPosts(posts);
+				userService.updateUser(user);
+				
+		List<Post> allPosts = service.fetchAllPosts();
+		model.addAttribute("allPosts", allPosts);
+		
+		
+		
+		
+		
+	      return "home";
+	}
 	
-	 @PostMapping("/createPost")
-	   public String createPost(@RequestParam("caption") String caption,
-	                            @RequestParam("photo") MultipartFile photo, 
-	                            Model model, HttpSession session)
-	   {
-		 
-		    String username = (String) session.getAttribute("username");
-			User user = userService.getUser(username);
-		  
-			Post post=new Post();
-			
-			//updating post object
-			 post.setUser(user);
-	        
-			 post.setCaption(caption);
-		  
-	       try 
-		  {
-	        post.setPhoto(photo.getBytes());
-	      } 		
-		  catch (IOException e) 
-		  {
-	           e.printStackTrace();
-	      }
-
-	     service.createPost(post);
-	     
-	       //updating user object
-			List<Post> posts = user.getPosts();
-			if(posts == null) {
-				posts = new ArrayList<Post>();
-			}
-			posts.add(post);
-			user.setPosts(posts);
-			userService.updateUser(user);
-			
-			List<Post> allPosts = service.fetchAllPosts();
-			model.addAttribute("allPosts", allPosts);
-	        return "home";
-	    }
-	   
-	
-	
-   @GetMapping("/showPost")
-   public String showPost(Model model)
-   {		
-	   List<Post> allPosts=service.fetchAllPosts();
-	   model.addAttribute("allPosts",allPosts);
-       return "showPost";
-    }
-   
-   
-   @PostMapping("/likePost")
+	@PostMapping("/likePost")
 	public String likePost(@RequestParam Long id, Model model) {
 		Post post= service.getPost(id);
 		post.setLikes(post.getLikes() + 1);
@@ -111,4 +97,7 @@ public class PostController {
 		return "home";
 	}
 	
+	
+	
+
 }
