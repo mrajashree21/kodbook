@@ -8,6 +8,9 @@
 <body>
     <nav>
         <span th:text="${session.username}"></span>
+         
+        
+        
         <a href="/goHome">News feed</a>
         <a href="/openCreatePost">Create post</a>
         <a href="/openMyProfile">My profile</a>
@@ -21,27 +24,27 @@
         <span th:each="post : ${allPosts}">
             <div class="post-card">
                
-                <!-- Profile picture and Username -->
                
-
+                
+                
+                 <!-- Profile picture and Username -->
                 <div class="post-header">
-                
-                
-                 
-                  <div class="profile-pic">
-                   <a href="/userProfile">
-                   
+                    <div class="profile-pic">
+                    <a th:href="@{'/profile/' + ${post.user.username}}" >
                         <img th:if="${post.user.photoBase64}" 
                              th:src="'data:image/jpeg;base64,' + ${post.user.photoBase64}" 
                              alt="User Photo" />
+                     </a>
                     </div>
-                  </a>
-                   <a href="/userProfile">
+                    
+                     <a th:href="@{'/profile/' + ${post.user.username}}" >
                     <span class="username" th:text="${post.user.username}">Unknown</span>
                     </a>
+	                    
+              
                 </div>
                  
-                 
+                
                    
 
                 <!-- Post Image -->

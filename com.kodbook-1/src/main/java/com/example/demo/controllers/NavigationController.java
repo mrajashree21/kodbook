@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entities.Post;
 import com.example.demo.entities.User;
@@ -124,6 +127,21 @@ public class NavigationController {
 		
 		
 		
+	}
+	
+	
+	
+	
+	
+	
+	@GetMapping("/profile/{username}")
+	public String profile(@PathVariable String username, Model model) {
+		User user = service.getUser(username);
+		model.addAttribute("user", user);
+		List<Post> myPosts = user.getPosts();
+		model.addAttribute("myPosts", myPosts);
+		
+		return "profile";
 	}
 	
 }
